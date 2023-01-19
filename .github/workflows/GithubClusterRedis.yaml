@@ -56,7 +56,7 @@ jobs:
               with:   
                  kubelogin-version: 'latest'
             - name: Convert kubeconfig for non-interactive use
-              run: kubelogin convert-kubeconfig -l workloadidentity
+              run: kubelogin convert-kubeconfig
             - uses: Azure/k8s-deploy@v4
               name: Deploys application
               with:
