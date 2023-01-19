@@ -45,18 +45,11 @@ jobs:
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
             - uses: azure/aks-set-context@v3
-              name: Get K8s context
               with:
-                cluster-name: ${{ env.CLUSTER_NAME }}
                 resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
-            - name: Setup kubelogin
-              uses: Azure/use-kubelogin@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:   
-                 kubelogin-version: 'latest'
-            - name: Convert kubeconfig for non-interactive use
-              run: kubelogin convert-kubeconfig
+                cluster-name: ${{ env.CLUSTER_NAME }}
+                admin: 'false'
+                use-kubelogin: 'true'
             - uses: Azure/k8s-deploy@v4
               name: Deploys application
               with:
