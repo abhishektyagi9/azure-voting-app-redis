@@ -44,6 +44,11 @@ jobs:
                 client-id: ${{ secrets.AZURE_CLIENT_ID }}
                 subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
                 tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+            - uses: azure/use-kubelogin@v1
+              with:
+                  kubelogin-version: 'latest'
+              env:
+               GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - uses: azure/aks-set-context@v3
               with:
                 resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
